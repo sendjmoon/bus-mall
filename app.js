@@ -47,7 +47,7 @@ function generateImages() {
 //function to handle clicking on images
 function handleImageClick(event) {
   console.log('you clicked ' + event.target.id);
-  if (totalClicks < 5) {
+  if (totalClicks < 25) {
     for (var i = 0; i < imageArray.length; i++) {
       if (event.target.id === imageArray[i].imageName) {
         imageArray[i].countClicked++;
@@ -69,5 +69,19 @@ imageArray.push(new Image('bathroom', 'img/bathroom.jpg', 0, 0));
 imageArray.push(new Image('boots', 'img/boots.jpg', 0, 0));
 imageArray.push(new Image('breakfast', 'img/breakfast.jpg', 0, 0));
 imageArray.push(new Image('bubblegum', 'img/bubblegum.jpg', 0, 0));
+imageArray.push(new Image('chair', 'img/chair.jpg', 0, 0));
+imageArray.push(new Image('cthulhu', 'img/cthulhu.jpg', 0, 0));
+imageArray.push(new Image('dog-duck', 'img/dog-duck.jpg', 0, 0));
+imageArray.push(new Image('dragon', 'img/dragon.jpg', 0, 0));
+imageArray.push(new Image('pen', 'img/pen.jpg', 0, 0));
+imageArray.push(new Image('pet-sweep', 'img/pet-sweep.jpg', 0, 0));
+imageArray.push(new Image('scissors', 'img/scissors.jpg', 0, 0));
+imageArray.push(new Image('shark', 'img/shark.jpg', 0, 0));
+imageArray.push(new Image('sweep', 'img/sweep.png', 0, 0));
+imageArray.push(new Image('tauntaun', 'img/tauntaun.jpg', 0, 0));
+imageArray.push(new Image('unicorn', 'img/unicorn.jpg', 0, 0));
+imageArray.push(new Image('usb', 'img/usb.gif', 0, 0));
+imageArray.push(new Image('water-can', 'img/water-can.jpg', 0, 0));
+imageArray.push(new Image('wine-glass', 'img/wine-glass.jpg', 0, 0));
 
 generateImages();
