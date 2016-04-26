@@ -19,29 +19,40 @@ function generateImages() {
     }
   }
 }
-//
+// generates random index number to use
 function getRandomIndex() {
   randomIndex = Math.floor(Math.random() * imageArray.length);
 }
 
+//creates image element in HTML
 function createImage() {
   var imageBox = document.getElementById('image-box');
   generatedArray.push(imageArray[randomIndex].imageName);
   var createImg = document.createElement('img');
   createImg.src = imageArray[randomIndex].imagePath;
+  createImg.id = imageArray[randomIndex].imageName;
   imageBox.appendChild(createImg);
 }
 
-function Image(imageName, imagePath) {
-  this.imageName = imageName;
-  this.imagePath = imagePath;
+function handleImageClick(event) {
+  event.preventDefault();
 }
 
-imageArray.push(new Image('bag', 'img/bag.jpg'));
-imageArray.push(new Image('banana', 'img/banana.jpg'));
-imageArray.push(new Image('bathroom', 'img/bathroom.jpg'));
-imageArray.push(new Image('boots', 'img/boots.jpg'));
-imageArray.push(new Image('breakfast', 'img/breakfast.jpg'));
-imageArray.push(new Image('bubblegum', 'img/bubblegum.jpg'));
+//object constructor
+function Image(imageName, imagePath, countShown, countClicked) {
+  this.imageName = imageName;
+  this.imagePath = imagePath;
+  this.countShown = countShown;
+  this.countClicked = countClicked;
+}
+
+// target.addEventListener('click', handleImageClick);
+
+imageArray.push(new Image('bag', 'img/bag.jpg', 0, 0));
+imageArray.push(new Image('banana', 'img/banana.jpg', 0, 0));
+imageArray.push(new Image('bathroom', 'img/bathroom.jpg', 0, 0));
+imageArray.push(new Image('boots', 'img/boots.jpg', 0, 0));
+imageArray.push(new Image('breakfast', 'img/breakfast.jpg', 0, 0));
+imageArray.push(new Image('bubblegum', 'img/bubblegum.jpg', 0, 0));
 
 generateImages();
