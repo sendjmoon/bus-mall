@@ -45,33 +45,3 @@ imageArray.push(new Image('breakfast', 'img/breakfast.jpg'));
 imageArray.push(new Image('bubblegum', 'img/bubblegum.jpg'));
 
 generateImages();
-
-// function generateImages() {
-//   var imageBox = document.getElementById('image-box');
-//   var randomIndex1 = Math.floor(Math.random() * imageArray.length);
-//   var createImg1 = document.createElement('img');
-//   createImg1.src = imageArray[randomIndex1].imagePath;
-//   createImg1.alt = imageArray[randomIndex1].imageName;
-//   imageBox.appendChild(createImg1);
-//   generatedArray.push(randomIndex1);
-//
-//   var randomIndex2 = Math.floor(Math.random() * imageArray.length);
-//   while (randomIndex1 != randomIndex2) {
-//
-//
-//   var randomIndex2 = Math.floor(Math.random() * imageArray.length);
-//   var createImg2 = document.createElement('img');
-//   createImg2.src = imageArray[randomIndex2].imagePath;
-//   createImg2.alt = imageArray[randomIndex2].imageName;
-//   while (createImg1 != createImg2) {
-//     imageBox.appendChild(createImg2);
-//   }
-//
-//   var randomIndex3 = Math.floor(Math.random() * imageArray.length);
-//   var createImg3 = document.createElement('img');
-//   createImg3.src = imageArray[randomIndex3].imagePath;
-//   createImg3.alt = imageArray[randomIndex3].imageName;
-//   while (createImg1 != createImg2 && createImg1 != createImg3 && createImg2 != createImg3) {
-//     imageBox.appendChild(createImg3);
-//   }
-// }
