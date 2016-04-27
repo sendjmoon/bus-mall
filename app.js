@@ -52,7 +52,7 @@ function generateImages() {
 //function to handle clicking on images
 function handleImageClick(event) {
   console.log('you clicked ' + event.target.id);
-  if (totalClicks < 10) {
+  if (totalClicks < 25) {
     for (var i = 0; i < imageArray.length; i++) {
       if (event.target.id === imageArray[i].imageName) {
         imageArray[i].countClicked++;
@@ -98,10 +98,13 @@ for (var i = 0; i < imageArray.length; i++) {
   imageNames.push(imageArray[i].imageName);
 }
 
+//creates charts
 function showChart() {
+  //pushes the data for number of times an image has shown
   for (var i = 0; i < imageArray.length; i++) {
     imageViews.push(imageArray[i].countShown);
   }
+  //pushes the data for number of times an image has been clicked
   for (var i = 0; i < imageArray.length; i++) {
     imageClicks.push(imageArray[i].countClicked);
   }
