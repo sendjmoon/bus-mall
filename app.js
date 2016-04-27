@@ -93,18 +93,15 @@ imageArray.push(new Image('usb', 'img/usb.gif', 0, 0));
 imageArray.push(new Image('water-can', 'img/water-can.jpg', 0, 0));
 imageArray.push(new Image('wine-glass', 'img/wine-glass.jpg', 0, 0));
 
-generateImages();
 //for loop to push names into separate Array
 for (var i = 0; i < imageArray.length; i++) {
   imageNames.push(imageArray[i].imageName);
 }
 
-
 function showChart() {
   for (var i = 0; i < imageArray.length; i++) {
     imageViews.push(imageArray[i].countShown);
   }
-
   for (var i = 0; i < imageArray.length; i++) {
     imageClicks.push(imageArray[i].countClicked);
   }
@@ -115,7 +112,7 @@ function showChart() {
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderColor: 'rgba(255,99,132,1)',
       borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+      hoverBackgroundColor: 'rgba(255,99,132,0.8)',
       hoverBorderColor: 'rgba(255,99,132,1)',
       data: imageViews,
       yAxisID: 'y-axis-0',
@@ -134,7 +131,7 @@ function showChart() {
       backgroundColor: 'rgba(255,99,132,0.2)',
       borderColor: 'rgba(255,99,132,1)',
       borderWidth: 1,
-      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+      hoverBackgroundColor: 'rgba(255,99,132,0.8)',
       hoverBorderColor: 'rgba(255,99,132,1)',
       data: imageClicks,
       yAxisID: 'y-axis-0',
@@ -146,3 +143,5 @@ function showChart() {
     data: clickData
   });
 }
+
+generateImages();
