@@ -1,8 +1,13 @@
 var imageArray = [];
 var generatedArray = [];
+var imageNames = [];
+var imageViews = [];
+var imageClicks = [];
 var randomIndex = 0;
 var totalClicks = 0;
 var imageBox = document.getElementById('image-box');
+var viewDataChart = document.getElementById('viewDataChart').getContext('2d');
+var clickDataChart = document.getElementById('clickDataChart').getContext('2d');
 
 //object constructor
 function Image(imageName, imagePath, countShown, countClicked) {
@@ -47,7 +52,7 @@ function generateImages() {
 //function to handle clicking on images
 function handleImageClick(event) {
   console.log('you clicked ' + event.target.id);
-  if (totalClicks < 25) {
+  if (totalClicks < 10) {
     for (var i = 0; i < imageArray.length; i++) {
       if (event.target.id === imageArray[i].imageName) {
         imageArray[i].countClicked++;
@@ -58,11 +63,15 @@ function handleImageClick(event) {
     generateImages();
     totalClicks++;
     console.log(totalClicks);
+  } else {
+    showChart();
   }
 }
 
+//listening for clicks
 imageBox.addEventListener('click', handleImageClick);
 
+//pushing objects into imageArray
 imageArray.push(new Image('bag', 'img/bag.jpg', 0, 0));
 imageArray.push(new Image('banana', 'img/banana.jpg', 0, 0));
 imageArray.push(new Image('bathroom', 'img/bathroom.jpg', 0, 0));
@@ -83,5 +92,56 @@ imageArray.push(new Image('unicorn', 'img/unicorn.jpg', 0, 0));
 imageArray.push(new Image('usb', 'img/usb.gif', 0, 0));
 imageArray.push(new Image('water-can', 'img/water-can.jpg', 0, 0));
 imageArray.push(new Image('wine-glass', 'img/wine-glass.jpg', 0, 0));
+
+//for loop to push names into separate Array
+for (var i = 0; i < imageArray.length; i++) {
+  imageNames.push(imageArray[i].imageName);
+}
+
+function showChart() {
+  for (var i = 0; i < imageArray.length; i++) {
+    imageViews.push(imageArray[i].countShown);
+  }
+  for (var i = 0; i < imageArray.length; i++) {
+    imageClicks.push(imageArray[i].countClicked);
+  }
+  var viewData = {
+    labels: imageNames,
+    datasets: [{
+      label: 'Number of Times Image Appeared',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgba(255,99,132,0.8)',
+      hoverBorderColor: 'rgba(255,99,132,1)',
+      data: imageViews,
+      yAxisID: 'y-axis-0',
+    }]
+  };
+
+  var viewsBarChart = new Chart(viewDataChart, {
+    type: 'bar',
+    data: viewData
+  });
+
+  var clickData = {
+    labels: imageNames,
+    datasets: [{
+      label: 'Number of Times Image Clicked',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgba(255,99,132,0.8)',
+      hoverBorderColor: 'rgba(255,99,132,1)',
+      data: imageClicks,
+      yAxisID: 'y-axis-0',
+    }]
+  };
+
+  var clicksBarChart = new Chart(clickDataChart, {
+    type: 'bar',
+    data: clickData
+  });
+}
 
 generateImages();
