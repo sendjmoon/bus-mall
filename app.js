@@ -106,6 +106,7 @@ function handleImageClick(event) {
 imageBox.addEventListener('click', function(event) {
   if (event.target.id !== 'image-box') {
     handleImageClick(event);
+    localStorage.setItem('imageData', JSON.stringify(imageArray));
   }
 });
 
@@ -116,7 +117,7 @@ for (var i = 0; i < imageArray.length; i++) {
 
 //creates charts
 function showChart() {
-  localStorage.setItem('imageData', JSON.stringify(imageArray));
+  // localStorage.setItem('imageData', JSON.stringify(imageArray));
   var viewData = {
     labels: imageNames,
     datasets: [{
