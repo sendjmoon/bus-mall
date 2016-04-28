@@ -1,3 +1,5 @@
+'use strict';
+
 var imageArray = [];
 var generatedArray = [];
 var imageNames = [];
@@ -16,60 +18,6 @@ function Image(imageName, imagePath, countShown, countClicked) {
   this.countShown = countShown;
   this.countClicked = countClicked;
 }
-
-// generates random index number to use
-function getRandomIndex() {
-  randomIndex = Math.floor(Math.random() * imageArray.length);
-}
-
-//creates image element in HTML
-function createImage() {
-  generatedArray.push(imageArray[randomIndex].imageName);
-  var createImg = document.createElement('img');
-  createImg.src = imageArray[randomIndex].imagePath;
-  createImg.id = imageArray[randomIndex].imageName;
-  imageBox.appendChild(createImg);
-  imageArray[randomIndex].countShown++;
-}
-
-// function to select three random images from imageArray
-function generateImages() {
-  var imageCount = 0;
-  var numOfImages = 3;
-  while (imageCount < 3) {
-    for (var i = 0; i < numOfImages; i++) {
-      getRandomIndex();
-      if (generatedArray.length < 3) {
-        if (imageArray[randomIndex].imageName != generatedArray[0] && imageArray[randomIndex].imageName != generatedArray[1] && imageArray[randomIndex].imageName != generatedArray[2]) {
-          createImage();
-          imageCount++;
-        }
-      }
-    }
-  }
-}
-
-//function to handle clicking on images
-function handleImageClick(event) {
-  console.log('you clicked ' + event.target.id);
-  if (totalClicks < 25) {
-    for (var i = 0; i < imageArray.length; i++) {
-      if (event.target.id === imageArray[i].imageName) {
-        imageArray[i].countClicked++;
-      }
-    }
-    imageBox.innerHTML = '';
-    generatedArray = [];
-    generateImages();
-    totalClicks++;
-    console.log(totalClicks);
-  } else {
-    showChart();
-  }
-}
-
-//listening for clicks
-imageBox.addEventListener('click', handleImageClick);
 
 //pushing objects into imageArray
 imageArray.push(new Image('bag', 'img/bag.jpg', 0, 0));
@@ -93,6 +41,74 @@ imageArray.push(new Image('usb', 'img/usb.gif', 0, 0));
 imageArray.push(new Image('water-can', 'img/water-can.jpg', 0, 0));
 imageArray.push(new Image('wine-glass', 'img/wine-glass.jpg', 0, 0));
 
+// generates random index number to use
+function getRandomIndex() {
+  randomIndex = Math.floor(Math.random() * imageArray.length);
+}
+
+//creates image element in HTML
+function createImage() {
+  generatedArray.push(imageArray[randomIndex].imageName);
+  var createImg = document.createElement('img');
+  createImg.src = imageArray[randomIndex].imagePath;
+  createImg.id = imageArray[randomIndex].imageName;
+  imageBox.appendChild(createImg);
+  imageArray[randomIndex].countShown++;
+  imageViews[randomIndex] = imageArray[randomIndex].countShown;
+}
+
+// function to select three random images from imageArray
+function generateImages() {
+  var imageCount = 0;
+  var numOfImages = 3;
+  while (imageCount < 3) {
+    for (var i = 0; i < numOfImages; i++) {
+      if (generatedArray.length < 3) {
+        getRandomIndex();
+        if (imageArray[randomIndex].imageName != generatedArray[0] && imageArray[randomIndex].imageName != generatedArray[1] && imageArray[randomIndex].imageName != generatedArray[2]) {
+          createImage();
+          imageCount++;
+        }
+      }
+    }
+  }
+}
+
+// function updateArrays() {
+//   for (var i = 0; i < imageArray.length; i++) {
+//     imageViews[i] = imageArray[i].countShown;
+//     imageClicks[i] = imageArray[i].countClicked;
+//     localStorage.setItem('viewData', JSON.stringify(imageViews));
+//     localStorage.setItem('viewClicks', JSON.stringify(imageClicks));
+//   }
+// }
+
+//function to handle clicking on images
+function handleImageClick(event) {
+  console.log('you clicked ' + event.target.id);
+  if (totalClicks < 25) {
+    for (var i = 0; i < imageArray.length; i++) {
+      if (event.target.id === imageArray[i].imageName) {
+        imageArray[i].countClicked++;
+        imageClicks[i] = imageArray[i].countClicked;
+      }
+    }
+    imageBox.innerHTML = '';
+    generatedArray = [];
+    generateImages();
+    totalClicks++;
+  } else {
+    showChart();
+  }
+}
+
+//listening for clicks
+imageBox.addEventListener('click', function(event) {
+  if (event.target.id !== 'image-box') {
+    handleImageClick(event);
+  }
+});
+
 //for loop to push names into separate Array
 for (var i = 0; i < imageArray.length; i++) {
   imageNames.push(imageArray[i].imageName);
@@ -100,14 +116,7 @@ for (var i = 0; i < imageArray.length; i++) {
 
 //creates charts
 function showChart() {
-  //pushes the data for number of times an image has shown
-  for (var i = 0; i < imageArray.length; i++) {
-    imageViews.push(imageArray[i].countShown);
-  }
-  //pushes the data for number of times an image has been clicked
-  for (var i = 0; i < imageArray.length; i++) {
-    imageClicks.push(imageArray[i].countClicked);
-  }
+  localStorage.setItem('imageData', JSON.stringify(imageArray));
   var viewData = {
     labels: imageNames,
     datasets: [{
@@ -146,5 +155,27 @@ function showChart() {
     data: clickData
   });
 }
+
+(function checkLocal() {
+  // if (localStorage.viewData) {
+  //   console.log('Local view storage exists');
+  //   var parsedViewData = JSON.parse(localStorage.viewData);
+  //   imageViews = parsedViewData;
+  //   console.log(imageViews);
+//   // } if (localStorage.viewClicks) {
+//   //   console.log('Local click storage exists');
+//   //   var parsedClickData = JSON.parse(localStorage.viewClicks);
+//   //   imageClicks = parsedClickData;
+//   //   console.log(imageClicks);
+  if (localStorage.imageData) {
+    console.log('Local image data storage exists');
+    var parsedImageData = JSON.parse(localStorage.imageData);
+    imageArray = parsedImageData;
+    console.table(imageArray);
+    console.log(localStorage.getItem('imageData'));
+  } else {
+    console.log('Local storage does not exist');
+  }
+})();
 
 generateImages();
