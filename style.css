@@ -1,19 +1,26 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: space-between;
+  align-items: center;
   flex-flow: column nowrap;
 }
 
 img {
-  width: 200px;
-  border: 1px solid black;
-  margin: 50px;
+  width: 31%;
+  margin: 2%;
+  border: 1px dotted black;
 }
 
 canvas {
   width: 100%;
   height: 100%;
+}
+
+#image-box {
+  width: 600px;
+  height: 200px;
+  display: flex;
+  flex-flow: row nowrap;
 }
 
 #view-box, #click-box {
